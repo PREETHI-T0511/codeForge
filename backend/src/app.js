@@ -17,8 +17,20 @@ app.get("/", (req, res) => {
 // using a standard web browser request (GET).The req (request) and res (response) are the inputs for
 // the action that follows.
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`); //it prints a confirmation message to your terminal
+app.get("/api/health", (req, res) => { //another route
+    res.json({
+        status: "OK",
+        service: "CodeForge Backend",
+        version: "1.0.0",
+    });
 });
 
-//it asks the app to listen from port number 3000
+module.exports=app;
+//why?
+//kitchen prepares for food, resturant opens the doors, 
+//app.js creates the appln
+//server.js starts listening for users
+
+
+//Think of it like this:
+//"Hey, if another file needs this app, here it is."
