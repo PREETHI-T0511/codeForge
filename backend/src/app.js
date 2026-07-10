@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express"); //import express, bring express into this file
 //Go into the node_modules folder, grab all the pre-built code tools from the Express package, 
 // and store them inside a variable called express so I can use them.
@@ -7,7 +8,7 @@ const app = express(); //created an instance
 // web application object, naming it app. You will use this app 
 // variable to build your whole website or API.
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 //It sets a variable for the port number.
 
 app.get("/", (req, res) => {
