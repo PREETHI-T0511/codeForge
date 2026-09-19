@@ -18,6 +18,11 @@ const {
     updateProblem,
     deleteProblem,
 } = require("../controllers/problem.controller");
+const {
+    createSubmission,
+    listSubmissions,
+    getSubmission,
+} = require("../controllers/submission.controller");
 
 const router = express.Router();
 
@@ -33,6 +38,9 @@ router.get("/:projectId/problems", listProblems);
 router.get("/:projectId/problems/:problemId", getProblem);
 router.patch("/:projectId/problems/:problemId", updateProblem);
 router.delete("/:projectId/problems/:problemId", deleteProblem);
+router.post("/:projectId/problems/:problemId/submissions", createSubmission);
+router.get("/:projectId/problems/:problemId/submissions", listSubmissions);
+router.get("/:projectId/problems/:problemId/submissions/:submissionId", getSubmission);
 router.get("/:projectId", getProject);
 
 module.exports = router;
