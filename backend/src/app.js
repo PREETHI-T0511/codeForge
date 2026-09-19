@@ -9,6 +9,7 @@ const app = express(); //created an instance
 // variable to build your whole website or API.
 app.use(express.json());
 const authRoutes = require("./routes/auth.routes");
+const projectRoutes = require("./routes/project.routes");
 app.use((req,res,next)=>{
     console.log(`[LOG] ${req.method} ${req.url}`);
     next();
@@ -33,6 +34,7 @@ app.get("/api/health", (req, res) => { //another route
 });
 
 app.use("/auth", authRoutes);
+app.use("/projects", projectRoutes);
 
 app.get("/api/crash", (req, res) => {
     throw new Error("Something exploded!");
