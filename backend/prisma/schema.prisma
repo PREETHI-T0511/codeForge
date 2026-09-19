@@ -47,5 +47,6 @@ model ProjectMember {
 
 enum ProjectRole {
   OWNER
+  ADMIN
   MEMBER
 }
