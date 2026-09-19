@@ -106,6 +106,18 @@ async function requireProjectOwner({ projectId, userId }) {
     }
 }
 
+async function requireProjectManager({ projectId, userId }) {
+    const membership = await getProjectMembership({ projectId, userId });
+
+    if (!membership) {
+        throw createError("Project not found", 404);
+    }
+
+    if (!["OWNER", "ADMIN"].includes(membership.role)) {
+        throw createError("Only project owners and admins can manage problems", 403);
+    }
+}
+
 async function listProjectMembers({ projectId, userId }) {
     const membership = await getProjectMembership({ projectId, userId });
 
@@ -215,7 +227,9 @@ module.exports = {
     createProject,
     listProjectsForUser,
     getProjectForUser,
+    getProjectMembership,
     requireProjectOwner,
+    requireProjectManager,
     listProjectMembers,
     addProjectMember,
     updateProjectMemberRole,

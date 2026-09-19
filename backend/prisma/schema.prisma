@@ -20,6 +20,7 @@ model User {
   updatedAt          DateTime        @updatedAt
   ownedProjects      Project[]       @relation("ProjectOwner")
   projectMemberships ProjectMember[]
+  createdProblems    Problem[]       @relation("ProblemCreator")
 }
 
 model Project {
@@ -31,6 +32,7 @@ model Project {
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
   members     ProjectMember[]
+  problems    Problem[]
 }
 
 model ProjectMember {
@@ -49,4 +51,26 @@ enum ProjectRole {
   OWNER
   ADMIN
   MEMBER
+}
+
+model Problem {
+  id          String            @id @default(cuid())
+  title       String
+  description String
+  difficulty  ProblemDifficulty
+  tags        String[]          @default([])
+  projectId   String
+  createdById String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  project     Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy   User              @relation("ProblemCreator", fields: [createdById], references: [id])
+
+  @@index([projectId])
+}
+
+enum ProblemDifficulty {
+  EASY
+  MEDIUM
+  HARD
 }
