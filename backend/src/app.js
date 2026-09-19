@@ -7,6 +7,8 @@ const app = express(); //created an instance
 //It fires up the Express tool and creates your actual 
 // web application object, naming it app. You will use this app 
 // variable to build your whole website or API.
+app.use(express.json());
+const authRoutes = require("./routes/auth.routes");
 app.use((req,res,next)=>{
     console.log(`[LOG] ${req.method} ${req.url}`);
     next();
@@ -30,6 +32,7 @@ app.get("/api/health", (req, res) => { //another route
     });
 });
 
+app.use("/auth", authRoutes);
 
 app.get("/api/crash", (req, res) => {
     throw new Error("Something exploded!");
@@ -44,15 +47,11 @@ app.use((err, req, res, next) => {
     });
 });
 
-
-
-
 module.exports=app;
 //why?
 //kitchen prepares for food, resturant opens the doors, 
 //app.js creates the appln
 //server.js starts listening for users
-
 
 //Think of it like this:
 //"Hey, if another file needs this app, here it is."

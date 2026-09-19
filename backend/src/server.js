@@ -1,3 +1,6 @@
+require("dotenv").config();
+//node can read the .env file only if we add this line
+//why not in app.js, cause server.js starts or selects the port
 const app = require("./app");
 
 const PORT = process.env.PORT || 3000;
